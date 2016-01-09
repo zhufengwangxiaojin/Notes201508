@@ -1,28 +1,9 @@
-//this原则：this指向当前被拖拽的元素
-function down(e){//准备拖拽
-	this.x=this.offsetLeft;
-	this.y=this.offsetTop;
-	this.mx=e.pageX;
-	this.my=e.pageY;
-	if(this.setCapture){
-		this.setCapture();
-		on(this,"mousemove",move);
-		on(this,"mouseup",up);
-	}else{
-		this.MOVE=move.bind(this);//bind方法IE6/7/8不支持
-		this.UP=up.bind(this);
-		on(document,"mousemove",this.MOVE);
-		on(document,"mouseup",this.UP);
-		
-	}
-	e.preventDefault();//阻止鼠标按下的时候默认的选中行为
+function clearEffect(){
 	clearTimeout(this.dropTimer);
-	clearTimeout(this.flyTimer);
+	clearTimeout(this.flyTimer);	
 }
-function move(e){//开始拖拽
-	this.style.left=this.x+(e.pageX-this.mx)+"px";
-	this.style.top=this.y+(e.pageY-this.my)+"px";
-	
+
+function getSpeed(e){
 	if(!this.prevPosi){
 		this.prevPosi=e.pageX;
 	}else{
@@ -30,20 +11,8 @@ function move(e){//开始拖拽
 		this.prevPosi=e.pageX;
 		
 	}
-	
 }
-function up(e){//结束拖拽
-	if(this.releaseCapture){
-		this.releaseCapture();	
-		off(this,"mousemove",move);
-		off(this,"mouseup",up);
-	}else{
-		off(document,"mousemove",this.MOVE);
-		off(document,"mouseup",this.UP);	
-	}
-	drop.call(this,e);
-	fly.call(this,e);
-}
+
 
 function drop(){//自由落体
 	if(!this.dropSpeed){
