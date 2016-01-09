@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <title>无标题文档</title>
 <style type="text/css">
-#div1{ width:100px; height:100px; position:absolute; background:red; cursor:move; top:0; left:0; overflow:hidden;}
+#div1{ width:100px; height:100px; position:absolute; background:red; cursor:move; top:0; left:0; overflow:hidden; -webkit-user-select:none;}
 </style>
 
 </head>
@@ -14,3 +14,8 @@
 </body>
 </html>
 <script src="event.js"></script>
+<script src="drag.js"></script>
+<script>
+on(div1,"mousedown",down);
+
+</script>

@@ -49,9 +49,12 @@ function off(ele,type,fn){
 		for(var i=0;i<a.length;i++){
 			if(a[i]==fn){
 				a[i]=null;
-				
 				break;	
 			}
 		}
 	}
+}
+
+function processThis(obj,fn){//fn.bind的实现原理
+	return function(e){fn.call(obj,e)}
 }
