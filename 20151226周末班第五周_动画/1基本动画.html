@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>无标题文档</title>
+    <style type="text/css">
+        #div1{ height:100px; width:100px; position:absolute;left:150px; top:100px;  background:red;}
+    </style>
+</head>
+
+<body>
+当前的位置=当前消耗的时间/总时间*(总距离)+起始位置
+单步的时间是多少？
+当前消耗的时间是单步时间的累加
+<div id="div1"></div>
+</body>
+</html>
+<script type="text/javascript">
+    function getCss(ele,attr){
+        if(window.getComputedStyle){
+            return parseFloat (getComputedStyle(ele,null)[attr]);
+
+        }else{
+            return parseFloat (ele.currentStyle[attr]);
+
+        }
+
+    }
+    function animate(ele,attr,target,duration){
+    var time=0;
+    //var duration=1000;
+    var interval=15;
+
+    var begin=getCss(ele,attr);
+    //var target=1200;
+    var change=target-begin;
+   function step(){
+
+        time+=interval;
+         if(time<duration){
+             odiv1.style[attr]=time/duration*change+begin+"px";
+             console.log(timer)
+         }else{
+        odiv1.style.left=target+"px";
+             clearInterval(timer);
+
+         }
+    }
+        var timer= window.setInterval(step,15);
+    }
+   var odiv1=document.getElementById('div1')
+
+    odiv1.onclick=function(){
+        animate(this,"left",1000,1000)
+    }
+</script>

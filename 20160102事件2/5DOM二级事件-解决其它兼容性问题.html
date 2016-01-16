@@ -86,10 +86,21 @@ function on(ele,type,fn){
 function run(e){
 	e=e||window.event;
 	var type=e.type;
+	if(!e.target){
+		e.target=e.srcElement;
+		e.pageX=(document.documentElement.scrollLeft||document.body.scrollLeft)+(document.documentElement.clientLeft||document.body.clientleft);
+		e.pageY=(document.documentElement.scrollTop||document.body.scrollTop)+(document.documentElement.clientTop||document.body.clientTop);
+		e.stopPropagation=function(){
+		  e.cancleBubble=true;	
+		}
+		e.preventDefault=function(){
+			e.returnValue=false;
+		}
+	}
 	var a=this["onEvent"+type];
 	for(var i=0;i<a.length;i++){
 		if(typeof a[i]=="function"){
-			a[i].call(this);
+			a[i].call(this,e);
 		}else{
 			a.splice(i,1);
 			i--;

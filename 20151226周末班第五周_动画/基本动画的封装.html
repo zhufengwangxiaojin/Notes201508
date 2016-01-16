@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        #odiv1{width:100px;height:100px;background:pink;position:absolute;left:150px;top:200px;}
+    </style>
+</head>
+<body>
+<div id="odiv1"></div>
+</body>
+</html>
+<script type="text/javascript">
+    function getCss(ele,attr){
+        if(window.getComputedStyle){
+            return parseFloat(getComputedStyle(ele,null)[attr]);
+
+        }else{
+            return paseFloat(ele.currentStyle[attr]);
+        }
+    }
+   function aimation (ele,attr,target,curation){
+    var timer=0;
+    var begin=getCss(ele,attr);
+    var change=target-begin;
+    var interval=15;
+       function step(){
+       timer+=interval;
+           if(timer<curation){
+        ele.style[attr]=timer/curation*change+begin+"px";
+           }else{
+               ele.style[attr]=target+"px";
+               clearInterval(timer);
+           }
+       }
+
+      var timer=window.setInterval(step,15)
+    }
+
+    var odiv1=document.getElementById('odiv1');
+    odiv1.onclick=function(){
+        aimation(odiv1,"width",1000,1000);
+    }
+</script>
